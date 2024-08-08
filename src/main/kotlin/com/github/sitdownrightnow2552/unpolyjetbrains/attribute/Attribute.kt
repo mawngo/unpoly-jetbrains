@@ -75,7 +75,7 @@ data class Attribute(
         /**
          * Create an Unpoly attribute using notation syntax.
          *
-         * @param notation contains information of tag, name and default value, copied from document, for example: a[[up-layer='new']] (a[up-layer='new'], the former one is for escaping kdoc).
+         * @param notation contains information of tag, name and default value, copied from the document, for example, a[[up-layer='new']] (a[up-layer='new'], the former one is for escaping kdoc).
          * @param text the description of attribute.
          * @param values available value of this attribute.
          * @param deprecated whether this attribute is deprecated (or experimental).
@@ -93,7 +93,7 @@ data class Attribute(
 
             var supportedValues = values
             if (values.isEmpty()) {
-                // try to set value type if a value was specified in notation but values-set is not specified manually.
+                // try to set the value type if a value was specified in notation but values-set is not specified manually.
                 for (group in listOf(VALUE_HTTP_METHOD, VALUE_BOOLEAN)) {
                     if (group.split(",").contains(value)) {
                         supportedValues = setOf(VALUE_REQUIRED, group)
@@ -149,7 +149,7 @@ data class Attribute(
 
         @JvmStatic
         fun parseNotation(notation: String): Triple<String, String, String> {
-            val match = Regex("(.+)?\\[(.+?)(='(.+?)')?\\]").find(notation)
+            val match = Regex("(.+)?\\[(.+?)(='(.+?)')?]").find(notation)
                 ?: throw IllegalArgumentException("No match found for notation $notation")
             val (_, tag, name, _, value) = match.groupValues
             return Triple(tag, name, value)

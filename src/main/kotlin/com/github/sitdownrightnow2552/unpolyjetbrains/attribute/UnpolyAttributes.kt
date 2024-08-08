@@ -1,7 +1,6 @@
 package com.github.sitdownrightnow2552.unpolyjetbrains.attribute
 
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_ALIGN
-import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_ANY
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_BOOLEAN
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_HTML
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_HTTP_METHOD
