@@ -1,13 +1,13 @@
 # unpoly-jetbrains
 
 ![Build](https://github.com/mawngo/unpoly-jetbrains/workflows/Build/badge.svg)
-[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
-[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/PLUGIN_ID)
+[![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/23200-unpoly-support)
+[![Downloads](https://img.shields.io/jetbrains/plugin/d/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/23200-unpoly-support)
 
 ## Plugin Description
 
 <!-- Plugin description -->
-This plugin adds support for [unpoly](https://unpoly.com/) tags autocompletion.
+This plugin adds support for [Unpoly](https://unpoly.com/) tags autocompletion.
 
 <!-- Plugin description end -->
 
