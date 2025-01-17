@@ -21,14 +21,17 @@ class UnpolyAttributeDescriptorsProvider : XmlAttributeDescriptorsProvider {
     override fun getAttributeDescriptor(attributeName: String, context: XmlTag): XmlAttributeDescriptor? {
         if (context.descriptor !is HtmlElementDescriptorImpl) return null
 
-        val attribute = UnpolyAttributes.allAttributesByNames[attributeName] ?: return null
-        if (attribute.tag != "" && attribute.tag != context.name) {
-            return null
+        val attributes = UnpolyAttributes.allAttributesByNames[attributeName] ?: return null
+        for (attribute in attributes) {
+            if (attribute.tag != "" && attribute.tag != context.name) {
+                continue
+            }
+            if (attribute.dependOn != null && !containsAttribute(context, attribute.dependOn!!.name)) {
+                continue
+            }
+            return UnpolyAttributeDescriptor(attribute, context)
         }
-        if (attribute.dependOn != null && !containsAttribute(context, attribute.dependOn!!.name)) {
-            return null
-        }
-        return UnpolyAttributeDescriptor(attribute, context)
+        return null
     }
 
     private fun containsAttribute(context: XmlTag, attributeName: String?): Boolean {

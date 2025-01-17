@@ -21,150 +21,174 @@ import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Compan
  * Declaration of available attributes
  */
 object UnpolyAttributes {
-    private val UP_WATCH_MODIFIERS = setOf(
-        of("[up-watch-event='change']", "The event types to observe.", VALUE_WATCH_EVENT),
-        of(
-            "[up-watch-delay]",
-            "The number of miliseconds to wait between an observed event and validating.",
-            VALUE_NUMBER
-        ),
-        of("[up-watch-disable]", "Whether to disable fields while validation is running."),
-        of("[up-watch-feedback]", "Whether to give navigation feedback while validating.")
-    )
+    object UnpolyModifiers {
+        fun upWatch(): Set<Attribute> {
+            return setOf(
+                of("[up-watch-event='change']", "The event types to observe.", VALUE_WATCH_EVENT),
+                of(
+                    "[up-watch-delay]",
+                    "The number of miliseconds to wait between an observed event and validating.",
+                    VALUE_NUMBER
+                ),
+                of("[up-watch-disable]", "Whether to disable fields while validation is running."),
+                of("[up-watch-feedback]", "Whether to give navigation feedback while validating.")
+            )
+        }
 
-    private val ACTION_MODIFIERS = setOf(
-        of("[up-confirm]", "A message the user needs to confirm.", VALUE_REQUIRED),
-        of("[up-duration]", "The duration of the transition or animation (in millisconds).", VALUE_NUMBER),
-        of("[up-easing]", "The timing function that accelerates the transition or animation.", VALUE_REQUIRED),
-    )
+        fun action(): Set<Attribute> {
+            return setOf(
+                of("[up-confirm]", "A message the user needs to confirm.", VALUE_REQUIRED),
+                of("[up-duration]", "The duration of the transition or animation (in millisconds).", VALUE_NUMBER),
+                of("[up-easing]", "The timing function that accelerates the transition or animation.", VALUE_REQUIRED),
+            )
+        }
 
-    private val UP_FOLLOW_MODIFIERS = ACTION_MODIFIERS + setOf(
-        of("[up-navigate='true']", "Whether this fragment update is considered navigation."),
-        of("[up-target]", "The target selector to update.", VALUE_REQUIRED),
-        of(
-            "[up-fallback='true']",
-            "Specifies behavior if the target selector is missing from the current page or the server response.",
-            setOf(VALUE_SELECTOR, VALUE_BOOLEAN, VALUE_REQUIRED)
-        ),
-        of(
-            "[up-match='region']",
-            "Controls which fragment to update when the [up-target] selector yields multiple results.",
-            VALUE_REQUIRED
-        ),
-        of(
-            "[up-match='region']",
-            "Controls which fragment to update when the [up-target] selector yields multiple results.",
-            VALUE_REQUIRED
-        ),
-        of("[up-method='get']", "The HTTP method to use for the request.", setOf(VALUE_REQUIRED, VALUE_HTTP_METHOD)),
-        of(
-            "[up-params]",
-            "A JSON object with additional parameters that should be sent as the request's query string or payload.",
-            VALUE_REQUIRED
-        ),
-        of("[up-headers]", "A JSON object with additional request headers.", VALUE_REQUIRED),
-        of("[up-content]", "The new inner HTML for the targeted fragment.", setOf(VALUE_REQUIRED, VALUE_HTML)),
-        of(
-            "[up-fragment]",
-            "A string of HTML comprising ONLY the new fragment's outer HTML.",
-            setOf(VALUE_REQUIRED, VALUE_HTML)
-        ),
-        of("[up-document]", "A string of HTML containing the targeted fragment.", setOf(VALUE_REQUIRED, VALUE_HTML)),
-        of("[up-fail]", "Whether the server response should be considered failed."),
-        of("[up-history='auto']", "A JSON object with additional request headers.", VALUE_REQUIRED),
-        of("[up-title]", "An explicit document title to set before rendering.", VALUE_BOOLEAN),
+        fun upFollow(): Set<Attribute> {
+            return action() + setOf(
+                of("[up-navigate='true']", "Whether this fragment update is considered navigation."),
+                of("[up-target]", "The target selector to update.", VALUE_REQUIRED),
+                of(
+                    "[up-fallback='true']",
+                    "Specifies behavior if the target selector is missing from the current page or the server response.",
+                    setOf(VALUE_SELECTOR, VALUE_BOOLEAN, VALUE_REQUIRED)
+                ),
+                of(
+                    "[up-match='region']",
+                    "Controls which fragment to update when the [up-target] selector yields multiple results.",
+                    VALUE_REQUIRED
+                ),
+                of(
+                    "[up-match='region']",
+                    "Controls which fragment to update when the [up-target] selector yields multiple results.",
+                    VALUE_REQUIRED
+                ),
+                of(
+                    "[up-method='get']",
+                    "The HTTP method to use for the request.",
+                    setOf(VALUE_REQUIRED, VALUE_HTTP_METHOD)
+                ),
+                of(
+                    "[up-params]",
+                    "A JSON object with additional parameters that should be sent as the request's query string or payload.",
+                    VALUE_REQUIRED
+                ),
+                of("[up-headers]", "A JSON object with additional request headers.", VALUE_REQUIRED),
+                of("[up-content]", "The new inner HTML for the targeted fragment.", setOf(VALUE_REQUIRED, VALUE_HTML)),
+                of(
+                    "[up-fragment]",
+                    "A string of HTML comprising ONLY the new fragment's outer HTML.",
+                    setOf(VALUE_REQUIRED, VALUE_HTML)
+                ),
+                of(
+                    "[up-document]",
+                    "A string of HTML containing the targeted fragment.",
+                    setOf(VALUE_REQUIRED, VALUE_HTML)
+                ),
+                of("[up-fail]", "Whether the server response should be considered failed."),
+                of("[up-history='auto']", "A JSON object with additional request headers.", VALUE_REQUIRED),
+                of("[up-title]", "An explicit document title to set before rendering.", VALUE_BOOLEAN),
 
-        of("[up-location]", "An explicit URL to set before rendering.", setOf(VALUE_REQUIRED, VALUE_URI)),
-        of("[up-meta-tags]", "Whether to update meta tags in the <head>.", VALUE_BOOLEAN),
-        of(
-            "[up-transition]",
-            "The name of an transition to morph between the old and few fragment.",
-            setOf(VALUE_REQUIRED, VALUE_TRANSITION)
-        ),
-        of(
-            "[up-fail-transition]",
-            "The transition to use when the server responds with an error code.",
-            setOf(VALUE_REQUIRED, VALUE_TRANSITION)
-        ),
-        of(
-            "[up-animation]",
-            "The name of an animation to reveal a new fragment when prepending or appending content.",
-            VALUE_REQUIRED
-        ),
-        of(
-            "[up-cache='auto']",
-            "Whether to read from and write to the cache.",
-            setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
-        ),
-        of(
-            "[up-revalidate='auto']",
-            "Whether to reload the targeted fragment after it was rendered from a cached response.",
-            setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
-        ),
-        of("[up-expire-cache]", "Whether existing cache entries will be expired with this request."),
-        of("[up-evict-cache]", "Whether existing cache entries will be evicted with this request."),
-        of("[up-abort='target']", "Whether to abort existing requests before rendering."),
-        of("[up-background='false']", "Whether this request will load in the background."),
-        of(
-            "[up-timeout]",
-            "The number of milliseconds after which this request fails with a timeout.",
-            setOf(VALUE_REQUIRED, VALUE_NUMBER)
-        ),
-        of("[up-peel='true']", "Whether to close overlays obstructing the updated layer when the fragment is updated."),
-        of("[up-scroll='auto']", "How to scroll after the new fragment was rendered."),
-        of(
-            "[up-scroll-behavior='instant']",
-            "Whether to animate the scroll motion when prepending or appending content."
-        ),
-        of(
-            "[up-reveal-snap]",
-            "When to snap to the top when scrolling to an element near the top edge of the viewport's scroll buffer."
-        ),
-        of("[up-reveal-top]", "When to move a revealed element to the top when scrolling to an element."),
-        of("[up-reveal-padding]", "How much space to leave to the closest viewport edge when scrolling to an element."),
-        of("[up-reveal-max]", "How many pixel lines of high element to reveal when scrolling to an element."),
-        of("[up-save-scroll]", "Whether to save scroll positions before updating the fragment."),
-        of("[up-focus='auto']", "What to focus after the new fragment was rendered."),
-        of("[up-save-focus]", "Whether to save focus-related state before updating the fragment."),
-        of(
-            "[up-feedback='true']",
-            "Whether to give the link an .up-active class and the targeted element an .up-loading class while loading content."
-        ),
-        of(
-            "[up-on-loaded]",
-            "A JavaScript snippet that is executed when the server responds with new HTML, but before the HTML is rendered.",
-            setOf(VALUE_REQUIRED, VALUE_JS)
-        ),
-        of(
-            "[up-on-rendered]",
-            "A JavaScript snippet that is executed when Unpoly has updated fragments.",
-            setOf(VALUE_REQUIRED, VALUE_JS)
-        ),
-        of(
-            "[up-on-finished]",
-            "A JavaScript snippet that is execvuted when no further DOM changes will be caused by this render pass.",
-            setOf(VALUE_REQUIRED, VALUE_JS)
-        ),
-        of(
-            "[up-on-offline]",
-            "A JavaScript snippet that is executed when the fragment could not be loaded due to a disconnect or timeout.",
-            setOf(VALUE_REQUIRED, VALUE_JS)
-        ),
-        of(
-            "[up-on-error]",
-            "A JavaScript snippet that is run when any error is thrown during the rendering process.",
-            setOf(VALUE_REQUIRED, VALUE_JS)
-        )
-    )
+                of("[up-location]", "An explicit URL to set before rendering.", setOf(VALUE_REQUIRED, VALUE_URI)),
+                of("[up-meta-tags]", "Whether to update meta tags in the <head>.", VALUE_BOOLEAN),
+                of(
+                    "[up-transition]",
+                    "The name of an transition to morph between the old and few fragment.",
+                    setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                ),
+                of(
+                    "[up-fail-transition]",
+                    "The transition to use when the server responds with an error code.",
+                    setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                ),
+                of(
+                    "[up-animation]",
+                    "The name of an animation to reveal a new fragment when prepending or appending content.",
+                    VALUE_REQUIRED
+                ),
+                of(
+                    "[up-cache='auto']",
+                    "Whether to read from and write to the cache.",
+                    setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
+                ),
+                of(
+                    "[up-revalidate='auto']",
+                    "Whether to reload the targeted fragment after it was rendered from a cached response.",
+                    setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
+                ),
+                of("[up-expire-cache]", "Whether existing cache entries will be expired with this request."),
+                of("[up-evict-cache]", "Whether existing cache entries will be evicted with this request."),
+                of("[up-abort='target']", "Whether to abort existing requests before rendering."),
+                of("[up-background='false']", "Whether this request will load in the background."),
+                of(
+                    "[up-timeout]",
+                    "The number of milliseconds after which this request fails with a timeout.",
+                    setOf(VALUE_REQUIRED, VALUE_NUMBER)
+                ),
+                of(
+                    "[up-peel='true']",
+                    "Whether to close overlays obstructing the updated layer when the fragment is updated."
+                ),
+                of("[up-scroll='auto']", "How to scroll after the new fragment was rendered."),
+                of(
+                    "[up-scroll-behavior='instant']",
+                    "Whether to animate the scroll motion when prepending or appending content."
+                ),
+                of(
+                    "[up-reveal-snap]",
+                    "When to snap to the top when scrolling to an element near the top edge of the viewport's scroll buffer."
+                ),
+                of("[up-reveal-top]", "When to move a revealed element to the top when scrolling to an element."),
+                of(
+                    "[up-reveal-padding]",
+                    "How much space to leave to the closest viewport edge when scrolling to an element."
+                ),
+                of("[up-reveal-max]", "How many pixel lines of high element to reveal when scrolling to an element."),
+                of("[up-save-scroll]", "Whether to save scroll positions before updating the fragment."),
+                of("[up-focus='auto']", "What to focus after the new fragment was rendered."),
+                of("[up-save-focus]", "Whether to save focus-related state before updating the fragment."),
+                of(
+                    "[up-feedback='true']",
+                    "Whether to give the link an .up-active class and the targeted element an .up-loading class while loading content."
+                ),
+                of(
+                    "[up-on-loaded]",
+                    "A JavaScript snippet that is executed when the server responds with new HTML, but before the HTML is rendered.",
+                    setOf(VALUE_REQUIRED, VALUE_JS)
+                ),
+                of(
+                    "[up-on-rendered]",
+                    "A JavaScript snippet that is executed when Unpoly has updated fragments.",
+                    setOf(VALUE_REQUIRED, VALUE_JS)
+                ),
+                of(
+                    "[up-on-finished]",
+                    "A JavaScript snippet that is execvuted when no further DOM changes will be caused by this render pass.",
+                    setOf(VALUE_REQUIRED, VALUE_JS)
+                ),
+                of(
+                    "[up-on-offline]",
+                    "A JavaScript snippet that is executed when the fragment could not be loaded due to a disconnect or timeout.",
+                    setOf(VALUE_REQUIRED, VALUE_JS)
+                ),
+                of(
+                    "[up-on-error]",
+                    "A JavaScript snippet that is run when any error is thrown during the rendering process.",
+                    setOf(VALUE_REQUIRED, VALUE_JS)
+                )
+            )
+        }
 
-    private val UP_SUBMIT_MODIFIERS = UP_FOLLOW_MODIFIERS + setOf(
-        of(
-            "[up-fail-target]",
-            "The target selector to update when the server responds with an error code",
-            VALUE_REQUIRED
-        ),
-        of("[up-disable]", "Whether to disable form controls while the form is submitting.")
-    )
+        fun upSubmit(): Set<Attribute> {
+            return UnpolyModifiers.upFollow() + setOf(
+                of(
+                    "[up-fail-target]",
+                    "The target selector to update when the server responds with an error code",
+                    VALUE_REQUIRED
+                ),
+                of("[up-disable]", "Whether to disable form controls while the form is submitting.")
+            )
+        }
+    }
 
     // The list of attributes according to docs.
     private val attributes = setOf(
@@ -176,12 +200,12 @@ object UnpolyAttributes {
         of(
             notation = "a[up-follow]", values = "$VALUE_SELECTOR,$VALUE_TOGGLEABLE",
             text = "Follows this link with JavaScript and updates a fragment with the server response.",
-            modifiers = UP_FOLLOW_MODIFIERS,
+            modifiers = UnpolyModifiers.upFollow(),
         ),
         of(
             notation = "a[up-href]", values = setOf(VALUE_URI, VALUE_REQUIRED),
             text = "Follows this link with JavaScript and updates a fragment with the server response.",
-            modifiers = UP_FOLLOW_MODIFIERS,
+            modifiers = UnpolyModifiers.upFollow(),
         ),
         of(
             notation = "a[up-instant]",
@@ -219,7 +243,7 @@ object UnpolyAttributes {
         of(
             notation = "form[up-submit]",
             text = "Submits this form via JavaScript and updates a fragment with the server response.",
-            modifiers = UP_SUBMIT_MODIFIERS
+            modifiers = UnpolyModifiers.upSubmit()
         ),
         of(
             notation = "[up-autosubmit]",
@@ -253,24 +277,24 @@ object UnpolyAttributes {
         of(
             notation = "[up-validate]", values = "$VALUE_SELECTOR$VALUE_TOGGLEABLE",
             text = "Renders a new form state when a field changes, to show validation errors or update dependent fields.",
-            modifiers = UP_WATCH_MODIFIERS
+            modifiers = UnpolyModifiers.upWatch()
         ),
         of(
             notation = "[up-watch]", values = "$VALUE_REQUIRED,$VALUE_JS,$VALUE_TOGGLEABLE",
             text = "Watches form fields and runs a callback when a value changes.",
-            modifiers = UP_WATCH_MODIFIERS
+            modifiers = UnpolyModifiers.upWatch()
         ),
 
         // Layers
         of(
             notation = "a[up-accept]",
             text = "Accepts the current layer when the link is clicked.",
-            modifiers = ACTION_MODIFIERS
+            modifiers = UnpolyModifiers.action()
         ),
         of(
             notation = "a[up-dismiss]",
             text = "Dismisses the current layer when the link is clicked.",
-            modifiers = ACTION_MODIFIERS + setOf(
+            modifiers = UnpolyModifiers.action() + setOf(
                 of(
                     "[up-animation]",
                     "The name of the overlay's close animation.",
@@ -282,7 +306,7 @@ object UnpolyAttributes {
             notation = "a[up-layer='new']",
             text = "Follows this link and opens the result in a new overlay.",
             values = setOf(VALUE_REQUIRED, "new", "swap", "shatter"),
-            modifiers = UP_FOLLOW_MODIFIERS + setOf(
+            modifiers = UnpolyModifiers.upFollow() + setOf(
                 of(
                     "[up-mode]",
                     "Whether to stack the new overlay onto the current layer or replace existing overlays",
@@ -426,12 +450,12 @@ object UnpolyAttributes {
         of(
             notation = "a[up-transition]", values = setOf(VALUE_REQUIRED, VALUE_TRANSITION),
             text = "Follows this link and swaps in the new fragment with an animated transition.",
-            modifiers = UP_FOLLOW_MODIFIERS
+            modifiers = UnpolyModifiers.upFollow()
         ),
         of(
             notation = "form[up-transition]", values = setOf(VALUE_REQUIRED, VALUE_TRANSITION),
             text = "Submits this form and swaps in the new fragment with an animated transition.",
-            modifiers = UP_SUBMIT_MODIFIERS
+            modifiers = UnpolyModifiers.upSubmit()
         ),
 
         // Navigation feedback
@@ -479,5 +503,5 @@ object UnpolyAttributes {
     )
 
     val attributesByTags = attributes.groupBy { it.tag }.mapValues { it.value.toSet() }
-    val allAttributesByNames = attributes.flatMap { listOf(it, *it.modifiers.toTypedArray()) }.associateBy { it.name }
+    val allAttributesByNames = attributes.flatMap { listOf(it, *it.modifiers.toTypedArray()) }.groupBy { it.name }
 }
