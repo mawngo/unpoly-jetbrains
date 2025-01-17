@@ -85,7 +85,7 @@ object UnpolyAttributes {
                     setOf(VALUE_REQUIRED, VALUE_HTML)
                 ),
                 of("[up-fail]", "Whether the server response should be considered failed."),
-                of("[up-history='auto']", "A JSON object with additional request headers.", VALUE_REQUIRED),
+                of("[up-history='auto']", "Whether the browser URL, window title and meta tags will be updated.", VALUE_REQUIRED),
                 of("[up-title]", "An explicit document title to set before rendering.", VALUE_BOOLEAN),
 
                 of("[up-location]", "An explicit URL to set before rendering.", setOf(VALUE_REQUIRED, VALUE_URI)),
