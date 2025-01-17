@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [0.7.0] - 2025-01-18
+
+- Support platform version 251
+- Fix warning "attribute requires value" for attributes that does not require value (up-follow, ...)
+- Update description of up-follow > up-history modifiers
+- Fix "attribute not allowed here" for modifiers that belong to multiple attribute (up-history is a modifier for
+  up-follow and up-layer, ...)
+
 ## [0.6.0] - 2024-09-24
 
 ### Added
@@ -35,6 +43,8 @@
 - Support autocompletion for all stable unpoly tags.
 
 [Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.5.0...HEAD
+
+[0.7.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.7.0
 
 [0.6.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.6.0
 
