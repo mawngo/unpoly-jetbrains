@@ -30,7 +30,11 @@ class UnpolyAttributeDescriptor(
         return attribute.isEnumerated
     }
 
+    // TODO: support suggestion for non-enumerated attributes.
     override fun getEnumeratedValues(): Array<String> {
+        if (!isEnumerated) {
+            return emptyArray()
+        }
         return attribute.values.filter { !it.startsWith("*") }.toTypedArray()
     }
 
