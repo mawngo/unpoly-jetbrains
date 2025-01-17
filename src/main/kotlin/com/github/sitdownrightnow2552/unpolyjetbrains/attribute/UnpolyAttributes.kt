@@ -22,8 +22,8 @@ import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Compan
  */
 object UnpolyAttributes {
     object UnpolyModifiers {
-        fun upWatch(): Set<Attribute> {
-            return setOf(
+        fun upWatch(): List<Attribute> {
+            return listOf(
                 of("[up-watch-event='change']", "The event types to observe.", VALUE_WATCH_EVENT),
                 of(
                     "[up-watch-delay]",
@@ -35,16 +35,16 @@ object UnpolyAttributes {
             )
         }
 
-        fun action(): Set<Attribute> {
-            return setOf(
+        fun action(): List<Attribute> {
+            return listOf(
                 of("[up-confirm]", "A message the user needs to confirm.", VALUE_REQUIRED),
                 of("[up-duration]", "The duration of the transition or animation (in millisconds).", VALUE_NUMBER),
                 of("[up-easing]", "The timing function that accelerates the transition or animation.", VALUE_REQUIRED),
             )
         }
 
-        fun upFollow(): Set<Attribute> {
-            return action() + setOf(
+        fun upFollow(): List<Attribute> {
+            return action() + listOf(
                 of("[up-navigate='true']", "Whether this fragment update is considered navigation."),
                 of("[up-target]", "The target selector to update.", VALUE_REQUIRED),
                 of(
@@ -85,7 +85,11 @@ object UnpolyAttributes {
                     setOf(VALUE_REQUIRED, VALUE_HTML)
                 ),
                 of("[up-fail]", "Whether the server response should be considered failed."),
-                of("[up-history='auto']", "Whether the browser URL, window title and meta tags will be updated.", VALUE_REQUIRED),
+                of(
+                    "[up-history='auto']",
+                    "Whether the browser URL, window title and meta tags will be updated.",
+                    VALUE_REQUIRED
+                ),
                 of("[up-title]", "An explicit document title to set before rendering.", VALUE_BOOLEAN),
 
                 of("[up-location]", "An explicit URL to set before rendering.", setOf(VALUE_REQUIRED, VALUE_URI)),
@@ -178,8 +182,8 @@ object UnpolyAttributes {
             )
         }
 
-        fun upSubmit(): Set<Attribute> {
-            return UnpolyModifiers.upFollow() + setOf(
+        fun upSubmit(): List<Attribute> {
+            return upFollow() + listOf(
                 of(
                     "[up-fail-target]",
                     "The target selector to update when the server responds with an error code",
@@ -294,7 +298,7 @@ object UnpolyAttributes {
         of(
             notation = "a[up-dismiss]",
             text = "Dismisses the current layer when the link is clicked.",
-            modifiers = UnpolyModifiers.action() + setOf(
+            modifiers = UnpolyModifiers.action() + listOf(
                 of(
                     "[up-animation]",
                     "The name of the overlay's close animation.",
@@ -306,7 +310,7 @@ object UnpolyAttributes {
             notation = "a[up-layer='new']",
             text = "Follows this link and opens the result in a new overlay.",
             values = setOf(VALUE_REQUIRED, "new", "swap", "shatter"),
-            modifiers = UnpolyModifiers.upFollow() + setOf(
+            modifiers = UnpolyModifiers.upFollow() + listOf(
                 of(
                     "[up-mode]",
                     "Whether to stack the new overlay onto the current layer or replace existing overlays",

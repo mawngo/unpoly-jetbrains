@@ -1,5 +1,6 @@
 package com.github.sitdownrightnow2552.unpolyjetbrains.attribute
 
+import ai.grazie.utils.toLinkedSet
 import com.intellij.openapi.util.IconLoader
 
 /**
@@ -87,7 +88,7 @@ data class Attribute(
             text: String = "",
             values: Set<String> = emptySet(),
             deprecated: Boolean = false,
-            modifiers: Set<Attribute> = emptySet()
+            modifiers: Collection<Attribute> = emptyList()
         ): Attribute {
             val (tag, name, value) = parseNotation(notation)
 
@@ -123,10 +124,10 @@ data class Attribute(
                 deprecated = deprecated,
                 tag = tag,
                 defaultValue = value,
-                modifiers = modifiers,
+                modifiers = modifiers.reversed().distinctBy { it.name }.reversed().toLinkedSet(),
                 isEnumerated = isNotContainAnyTypePlaceHolder,
             )
-            modifiers.forEach { it.dependOn = attribute }
+            attribute.modifiers.forEach { it.dependOn = attribute }
             return attribute
         }
 
@@ -136,7 +137,7 @@ data class Attribute(
             text: String,
             values: String,
             deprecated: Boolean = false,
-            modifiers: Set<Attribute> = emptySet()
+            modifiers: Collection<Attribute> = emptyList()
         ): Attribute {
             return of(
                 notation = notation,
