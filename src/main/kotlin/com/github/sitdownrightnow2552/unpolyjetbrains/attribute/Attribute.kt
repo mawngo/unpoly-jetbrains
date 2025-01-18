@@ -116,6 +116,7 @@ data class Attribute(
                 .toSet()
 
             val isNotContainAnyTypePlaceHolder = supportedValues.find { isPlaceHolder(it) && it != VALUE_ANY } == null
+            val isRequired = supportedValues.find { it == VALUE_REQUIRED } != null
 
             val attribute = Attribute(
                 name = name,
@@ -125,7 +126,7 @@ data class Attribute(
                 tag = tag,
                 defaultValue = value,
                 modifiers = modifiers.reversed().distinctBy { it.name }.reversed().toLinkedSet(),
-                isEnumerated = isNotContainAnyTypePlaceHolder,
+                isEnumerated = isRequired && isNotContainAnyTypePlaceHolder,
             )
             attribute.modifiers.forEach { it.dependOn = attribute }
             return attribute
