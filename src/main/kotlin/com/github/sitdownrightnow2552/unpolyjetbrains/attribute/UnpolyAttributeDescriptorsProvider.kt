@@ -7,15 +7,7 @@ import com.intellij.xml.XmlAttributeDescriptorsProvider
 
 class UnpolyAttributeDescriptorsProvider : XmlAttributeDescriptorsProvider {
     override fun getAttributeDescriptors(context: XmlTag): Array<XmlAttributeDescriptor> {
-        if (context.descriptor !is HtmlElementDescriptorImpl) return emptyArray()
-
-        val attributes = UnpolyAttributes.attributesByTags.getOrDefault("", emptySet()) +
-            UnpolyAttributes.attributesByTags.getOrDefault(context.name, emptySet())
-
-        return attributes
-            .flatMap { if (containsAttribute(context, it.name)) it.modifiers else setOf(it) }
-            .map { UnpolyAttributeDescriptor(it, context) }
-            .toTypedArray()
+        return emptyArray()
     }
 
     override fun getAttributeDescriptor(attributeName: String, context: XmlTag): XmlAttributeDescriptor? {
@@ -23,24 +15,11 @@ class UnpolyAttributeDescriptorsProvider : XmlAttributeDescriptorsProvider {
 
         val attributes = UnpolyAttributes.allAttributesByNames[attributeName] ?: return null
         for (attribute in attributes) {
-            if (attribute.tag != "" && attribute.tag != context.name) {
+            if (!attribute.match(context)) {
                 continue
             }
-
-            if (attribute.dependOn.isEmpty()) {
-                return UnpolyAttributeDescriptor(attribute, context)
-            }
-
-            for (dep in attribute.dependOn) {
-                if (containsAttribute(context, dep.name)) {
-                    return UnpolyAttributeDescriptor(attribute, context)
-                }
-            }
+            return UnpolyAttributeDescriptor(attribute, context)
         }
         return null
-    }
-
-    private fun containsAttribute(context: XmlTag, attributeName: String?): Boolean {
-        return context.attributes.find { it.name == attributeName } != null
     }
 }

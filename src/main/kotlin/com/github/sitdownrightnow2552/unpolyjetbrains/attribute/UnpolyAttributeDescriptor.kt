@@ -19,7 +19,7 @@ class UnpolyAttributeDescriptor(
     override fun getDefaultValue(): String? {
         return if (attribute.defaultValue == "") {
             null
-        } else if (!attribute.values.contains(Attribute.VALUE_REQUIRED)) {
+        } else if (attribute.values.isEmpty()) {
             null
         } else {
             attribute.defaultValue
@@ -30,12 +30,8 @@ class UnpolyAttributeDescriptor(
         return attribute.isEnumerated
     }
 
-    // TODO: support suggestion for non-enumerated attributes.
     override fun getEnumeratedValues(): Array<String> {
-        if (!isEnumerated) {
-            return emptyArray()
-        }
-        return attribute.values.filter { !it.startsWith("*") }.toTypedArray()
+        return attribute.values.toTypedArray()
     }
 
     override fun getDeclaration(): PsiElement {
@@ -58,7 +54,7 @@ class UnpolyAttributeDescriptor(
     }
 
     override fun isRequired(): Boolean {
-        return attribute.values.contains(Attribute.VALUE_REQUIRED)
+        return false
     }
 
     override fun hasIdType(): Boolean {

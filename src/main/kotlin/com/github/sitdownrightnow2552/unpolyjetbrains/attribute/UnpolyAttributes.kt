@@ -16,6 +16,7 @@ import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Compan
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_URI
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_WATCH_EVENT
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.of
+import com.github.sitdownrightnow2552.unpolyjetbrains.completion.Completions
 
 /**
  * Declaration of available attributes
@@ -24,8 +25,8 @@ object UnpolyAttributes {
     object UnpolyModifiers {
         val UP_WATCH = listOf(
             of(
-                "[up-watch-event='change']",
-                "The event types to observe.",
+                notation = "[up-watch-event='change']",
+                text = "The event types to observe.",
                 setOf(VALUE_WATCH_EVENT)
             ),
             of(
@@ -226,19 +227,26 @@ object UnpolyAttributes {
     }
 
     // The list of attributes according to docs.
-    private val attributes = setOf(
+    val attributes = setOf(
         // Linking to fragments
         of(
-            notation = "a[up-dash]", deprecated = true,
-            text = "Follows this link as fast as possible.",
+            notation = "[up-defer]",
+            text = "Experimental. A placeholder for content that is loaded later from another URL.",
+            experimental = true,
         ),
         of(
-            notation = "a[up-follow]", values = setOf(VALUE_SELECTOR, VALUE_TOGGLEABLE),
+            notation = "[up-expand]",
+            text = "Enlarge the click area of a descendant link.",
+            completions = listOf(Completions.SELECTOR),
+        ),
+        of(
+            notation = "[up-follow]",
             text = "Follows this link with JavaScript and updates a fragment with the server response.",
             modifiers = UnpolyModifiers.UP_FOLLOW,
+            matchers = listOf(Matchers.links())
         ),
         of(
-            notation = "a[up-href]", values = setOf(VALUE_URI, VALUE_REQUIRED),
+            notation = "[up-href]", values = setOf(VALUE_URI, VALUE_REQUIRED),
             text = "Follows this link with JavaScript and updates a fragment with the server response.",
             modifiers = UnpolyModifiers.UP_FOLLOW,
         ),
@@ -259,11 +267,7 @@ object UnpolyAttributes {
                 )
             )
         ),
-        of(
-            notation = "[up-expand]",
-            text = "Follows this link on mousedown instead of click. This will save precious milliseconds that otherwise spent on waiting for the user to release the mouse button.",
-            values = setOf(VALUE_SELECTOR, VALUE_TOGGLEABLE),
-        ),
+
 
         // Custom JavaScript
         of(
@@ -492,10 +496,7 @@ object UnpolyAttributes {
             notation = "[up-flashes]", deprecated = true,
             text = "Experimental. Use an [up-flashes] element to show confirmations, alerts or warnings.",
         ),
-        of(
-            notation = "[up-defer]", deprecated = true,
-            text = "Experimental. A placeholder for content that is loaded later from another URL.",
-        ),
+
 
         // Animation
         of(
@@ -553,6 +554,5 @@ object UnpolyAttributes {
         )
     )
 
-    val attributesByTags = attributes.groupBy { it.tag }.mapValues { it.value.toSet() }
     val allAttributesByNames = attributes.flatMap { listOf(it, *it.modifiers.toTypedArray()) }.groupBy { it.name }
 }
