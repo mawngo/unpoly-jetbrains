@@ -1,6 +1,5 @@
 package com.github.sitdownrightnow2552.unpolyjetbrains.attribute
 
-import ai.grazie.utils.toLinkedSet
 import com.intellij.openapi.util.IconLoader
 
 /**
@@ -34,7 +33,7 @@ data class Attribute(
     /**
      * This attribute modifiers.
      */
-    val modifiers: Set<Attribute> = emptySet(),
+    val modifiers: List<Attribute> = emptyList(),
     /**
      * Whether this attribute is Enumerated, meaning it has a fixed set of value.
      */
@@ -43,7 +42,7 @@ data class Attribute(
     val icon
         get() = ICON
 
-    var dependOn: Attribute? = null
+    var dependOn: MutableList<Attribute> = mutableListOf()
         private set
 
     companion object {
@@ -125,28 +124,11 @@ data class Attribute(
                 deprecated = deprecated,
                 tag = tag,
                 defaultValue = value,
-                modifiers = modifiers.reversed().distinctBy { it.name }.reversed().toLinkedSet(),
+                modifiers = modifiers.reversed().distinctBy { it.name }.reversed().toList(),
                 isEnumerated = isRequired && isNotContainAnyTypePlaceHolder,
             )
-            attribute.modifiers.forEach { it.dependOn = attribute }
+            attribute.modifiers.forEach { it.dependOn.add(attribute) }
             return attribute
-        }
-
-        @JvmStatic
-        fun of(
-            notation: String,
-            text: String,
-            values: String,
-            deprecated: Boolean = false,
-            modifiers: Collection<Attribute> = emptyList()
-        ): Attribute {
-            return of(
-                notation = notation,
-                text = text,
-                values = values.split(",").filter { it.isNotBlank() }.toSet(),
-                deprecated = deprecated,
-                modifiers = modifiers
-            )
         }
 
         @JvmStatic

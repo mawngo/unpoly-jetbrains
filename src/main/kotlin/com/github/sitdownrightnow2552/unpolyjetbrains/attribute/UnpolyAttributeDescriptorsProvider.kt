@@ -26,10 +26,16 @@ class UnpolyAttributeDescriptorsProvider : XmlAttributeDescriptorsProvider {
             if (attribute.tag != "" && attribute.tag != context.name) {
                 continue
             }
-            if (attribute.dependOn != null && !containsAttribute(context, attribute.dependOn!!.name)) {
-                continue
+
+            if (attribute.dependOn.isEmpty()) {
+                return UnpolyAttributeDescriptor(attribute, context)
             }
-            return UnpolyAttributeDescriptor(attribute, context)
+
+            for (dep in attribute.dependOn) {
+                if (containsAttribute(context, dep.name)) {
+                    return UnpolyAttributeDescriptor(attribute, context)
+                }
+            }
         }
         return null
     }
