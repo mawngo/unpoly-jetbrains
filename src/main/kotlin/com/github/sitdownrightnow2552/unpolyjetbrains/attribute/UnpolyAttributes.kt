@@ -9,14 +9,11 @@ import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Compan
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_LAYER_MATCHING
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_NUMBER
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_POSITION
-import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_REQUIRED
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_SELECTOR
-import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_TOGGLEABLE
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_TRANSITION
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_URI
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.VALUE_WATCH_EVENT
 import com.github.sitdownrightnow2552.unpolyjetbrains.attribute.Attribute.Companion.of
-import com.github.sitdownrightnow2552.unpolyjetbrains.completion.Completions
 
 /**
  * Declaration of available attributes
@@ -42,7 +39,6 @@ object UnpolyAttributes {
             of(
                 "[up-confirm]",
                 "A message the user needs to confirm.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-duration]",
@@ -52,7 +48,6 @@ object UnpolyAttributes {
             of(
                 "[up-easing]",
                 "The timing function that accelerates the transition or animation.",
-                setOf(VALUE_REQUIRED)
             ),
         )
 
@@ -61,58 +56,49 @@ object UnpolyAttributes {
             of(
                 "[up-target]",
                 "The target selector to update.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-fallback='true']",
                 "Specifies behavior if the target selector is missing from the current page or the server response.",
-                setOf(VALUE_SELECTOR, VALUE_BOOLEAN, VALUE_REQUIRED)
+                setOf(VALUE_SELECTOR, VALUE_BOOLEAN)
             ),
             of(
                 "[up-match='region']",
                 "Controls which fragment to update when the [up-target] selector yields multiple results.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
-                "[up-match='region']",
-                "Controls which fragment to update when the [up-target] selector yields multiple results.",
-                setOf(VALUE_REQUIRED)
-            ),
-            of(
-                "[up-method='get']",
-                "The HTTP method to use for the request.",
-                setOf(VALUE_REQUIRED, VALUE_HTTP_METHOD)
+                notation = "[up-method='get']",
+                text = "The HTTP method to use for the request.",
+                values = setOf(VALUE_HTTP_METHOD),
+                enumerated = true
             ),
             of(
                 "[up-params]",
                 "A JSON object with additional parameters that should be sent as the request's query string or payload.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-headers]",
                 "A JSON object with additional request headers.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-content]",
                 "The new inner HTML for the targeted fragment.",
-                setOf(VALUE_REQUIRED, VALUE_HTML)
+                setOf(VALUE_HTML)
             ),
             of(
                 "[up-fragment]",
                 "A string of HTML comprising ONLY the new fragment's outer HTML.",
-                setOf(VALUE_REQUIRED, VALUE_HTML)
+                setOf(VALUE_HTML)
             ),
             of(
                 "[up-document]",
                 "A string of HTML containing the targeted fragment.",
-                setOf(VALUE_REQUIRED, VALUE_HTML)
+                setOf(VALUE_HTML)
             ),
             of("[up-fail]", "Whether the server response should be considered failed."),
             of(
                 "[up-history='auto']",
                 "Whether the browser URL, window title and meta tags will be updated.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-title]",
@@ -122,7 +108,7 @@ object UnpolyAttributes {
             of(
                 "[up-location]",
                 "An explicit URL to set before rendering.",
-                setOf(VALUE_REQUIRED, VALUE_URI)
+                setOf(VALUE_URI)
             ),
             of(
                 "[up-meta-tags]",
@@ -130,29 +116,30 @@ object UnpolyAttributes {
                 setOf(VALUE_BOOLEAN)
             ),
             of(
-                "[up-transition]",
-                "The name of an transition to morph between the old and few fragment.",
-                setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                notation = "[up-transition]",
+                text = "The name of an transition to morph between the old and few fragment.",
+                values = setOf(VALUE_TRANSITION),
+                enumerated = true
             ),
             of(
-                "[up-fail-transition]",
-                "The transition to use when the server responds with an error code.",
-                setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                notation = "[up-fail-transition]",
+                text = "The transition to use when the server responds with an error code.",
+                values = setOf(VALUE_TRANSITION),
+                enumerated = true
             ),
             of(
                 "[up-animation]",
                 "The name of an animation to reveal a new fragment when prepending or appending content.",
-                setOf(VALUE_REQUIRED)
             ),
             of(
                 "[up-cache='auto']",
                 "Whether to read from and write to the cache.",
-                setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
+                setOf(VALUE_BOOLEAN, "auto")
             ),
             of(
                 "[up-revalidate='auto']",
                 "Whether to reload the targeted fragment after it was rendered from a cached response.",
-                setOf(VALUE_REQUIRED, VALUE_BOOLEAN, "auto")
+                setOf(VALUE_BOOLEAN, "auto")
             ),
             of("[up-expire-cache]", "Whether existing cache entries will be expired with this request."),
             of("[up-evict-cache]", "Whether existing cache entries will be evicted with this request."),
@@ -161,7 +148,7 @@ object UnpolyAttributes {
             of(
                 "[up-timeout]",
                 "The number of milliseconds after which this request fails with a timeout.",
-                setOf(VALUE_REQUIRED, VALUE_NUMBER)
+                setOf(VALUE_NUMBER)
             ),
             of(
                 "[up-peel='true']",
@@ -192,27 +179,27 @@ object UnpolyAttributes {
             of(
                 "[up-on-loaded]",
                 "A JavaScript snippet that is executed when the server responds with new HTML, but before the HTML is rendered.",
-                setOf(VALUE_REQUIRED, VALUE_JS)
+                setOf(VALUE_JS)
             ),
             of(
                 "[up-on-rendered]",
                 "A JavaScript snippet that is executed when Unpoly has updated fragments.",
-                setOf(VALUE_REQUIRED, VALUE_JS)
+                setOf(VALUE_JS)
             ),
             of(
                 "[up-on-finished]",
                 "A JavaScript snippet that is execvuted when no further DOM changes will be caused by this render pass.",
-                setOf(VALUE_REQUIRED, VALUE_JS)
+                setOf(VALUE_JS)
             ),
             of(
                 "[up-on-offline]",
                 "A JavaScript snippet that is executed when the fragment could not be loaded due to a disconnect or timeout.",
-                setOf(VALUE_REQUIRED, VALUE_JS)
+                setOf(VALUE_JS)
             ),
             of(
                 "[up-on-error]",
                 "A JavaScript snippet that is run when any error is thrown during the rendering process.",
-                setOf(VALUE_REQUIRED, VALUE_JS)
+                setOf(VALUE_JS)
             )
         )
 
@@ -220,7 +207,6 @@ object UnpolyAttributes {
             of(
                 "[up-fail-target]",
                 "The target selector to update when the server responds with an error code",
-                setOf(VALUE_REQUIRED)
             ),
             of("[up-disable]", "Whether to disable form controls while the form is submitting.")
         )
@@ -233,11 +219,11 @@ object UnpolyAttributes {
             notation = "[up-defer]",
             text = "Experimental. A placeholder for content that is loaded later from another URL.",
             experimental = true,
+            modifiers = UnpolyModifiers.UP_FOLLOW
         ),
         of(
             notation = "[up-expand]",
             text = "Enlarge the click area of a descendant link.",
-            completions = listOf(Completions.SELECTOR),
         ),
         of(
             notation = "[up-follow]",
@@ -246,19 +232,14 @@ object UnpolyAttributes {
             matchers = listOf(Matchers.links())
         ),
         of(
-            notation = "[up-href]", values = setOf(VALUE_URI, VALUE_REQUIRED),
-            text = "Follows this link with JavaScript and updates a fragment with the server response.",
-            modifiers = UnpolyModifiers.UP_FOLLOW,
+            notation = "[up-href]",
+            values = setOf(VALUE_URI),
+            text = "Set the link's destination URL for non-inactive element",
         ),
         of(
-            notation = "a[up-instant]",
-            text = "Follows this link on mousedown instead of click. This will save precious milliseconds that otherwise spent on waiting for the user to release the mouse button.",
-            values = setOf(VALUE_TOGGLEABLE)
-        ),
-        of(
-            notation = "a[up-preload]",
+            notation = "[up-preload='hover']",
             text = "Preloads this link when the user hovers over it.",
-            values = setOf(VALUE_TOGGLEABLE, "insert", "reveal"),
+            values = setOf("insert", "reveal"),
             modifiers = setOf(
                 of(
                     "[up-preload-delay]",
@@ -271,7 +252,7 @@ object UnpolyAttributes {
 
         // Custom JavaScript
         of(
-            notation = "[up-asset]", values = setOf(VALUE_BOOLEAN),
+            notation = "[up-asset]",
             text = "Tracks an element as a frontend asset, usually JavaScripts and stylesheets.",
         ),
         of(
@@ -281,71 +262,67 @@ object UnpolyAttributes {
 
         // Forms
         of(
-            notation = "form[up-submit]",
-            text = "Submits this form via JavaScript and updates a fragment with the server response.",
-            modifiers = UnpolyModifiers.UP_SUBMIT
-        ),
-        of(
             notation = "[up-autosubmit]",
-            values = setOf(VALUE_TOGGLEABLE),
             text = "Automatically submits a form when a field changes.",
             modifiers = setOf(
-                of("[up-watch-event='input']", "The type of event to watch.", setOf(VALUE_REQUIRED)),
+                of("[up-watch-event='input']", "The type of event to watch.", setOf(VALUE_WATCH_EVENT)),
                 of("[up-disable]", "Whether to disable form controls while the form is submitting.")
             )
-        ),
-        of(
-            notation = "[up-fieldset]", deprecated = true,
-            text = "Marks this element as a from group, which (usually) contains a label, input and error message."
         ),
         of(
             notation = "[up-form-group]",
             text = "Marks this element as a from group, which (usually) contains a label, input and error message."
         ),
         of(
-            notation = "[up-hide-for]", values = setOf(VALUE_REQUIRED),
+            notation = "[up-hide-for]",
             text = "Hides this element if an input field with [up-switch] has one of the given values."
         ),
         of(
-            notation = "[up-show-for]", values = setOf(VALUE_REQUIRED),
+            notation = "[up-show-for]",
             text = "Only shows this element if an input field with [up-switch] has one of the given values."
+        ),
+        of(
+            notation = "form[up-submit]",
+            text = "Submits this form via JavaScript and updates a fragment with the server response.",
+            modifiers = UnpolyModifiers.UP_SUBMIT
         ),
         of(
             notation = "[up-switch]", values = setOf(VALUE_SELECTOR),
             text = "Show or hide elements when a form field is set to a given value."
         ),
         of(
-            notation = "[up-validate]", values = setOf(VALUE_SELECTOR, VALUE_TOGGLEABLE),
+            notation = "[up-validate]",
             text = "Renders a new form state when a field changes, to show validation errors or update dependent fields.",
             modifiers = UnpolyModifiers.UP_WATCH
         ),
         of(
-            notation = "[up-watch]", values = setOf(VALUE_REQUIRED, VALUE_JS, VALUE_TOGGLEABLE),
+            notation = "[up-watch]", values = setOf(VALUE_JS),
             text = "Watches form fields and runs a callback when a value changes.",
             modifiers = UnpolyModifiers.UP_WATCH
         ),
 
         // Layers
         of(
-            notation = "a[up-accept]",
+            notation = "[up-accept]",
             text = "Accepts the current layer when the link is clicked.",
-            modifiers = UnpolyModifiers.ACTION
+            modifiers = UnpolyModifiers.ACTION,
+            matchers = listOf(Matchers.links())
         ),
         of(
-            notation = "a[up-dismiss]",
+            notation = "[up-dismiss]",
             text = "Dismisses the current layer when the link is clicked.",
             modifiers = UnpolyModifiers.ACTION + listOf(
                 of(
                     "[up-animation]",
                     "The name of the overlay's close animation.",
-                    setOf(VALUE_REQUIRED)
                 ),
             )
         ),
         of(
-            notation = "a[up-layer='new']",
+            notation = "[up-layer='new']",
             text = "Follows this link and opens the result in a new overlay.",
-            values = setOf(VALUE_REQUIRED, "new", "swap", "shatter"),
+            values = setOf("new", "swap", "shatter"),
+            matchers = listOf(Matchers.links()),
             modifiers = UnpolyModifiers.UP_FOLLOW + listOf(
                 of(
                     "[up-mode]",
@@ -370,96 +347,99 @@ object UnpolyAttributes {
                     setOf(VALUE_BOOLEAN)
                 ),
                 of(
-                    "[up-animation]",
-                    "The name of the opening animation.",
-                    setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                    notation = "[up-animation]",
+                    text = "The name of the opening animation.",
+                    values = setOf(VALUE_TRANSITION),
+                    enumerated = true
                 ),
                 of(
                     "[up-on-opened]",
                     "A JavaScript snippet that is called when the overlay was inserted into the DOM.",
-                    setOf(VALUE_REQUIRED, VALUE_JS)
+                    setOf(VALUE_JS)
                 ),
                 of(
                     "[up-on-accepted]",
                     "A JavaScript snippet that is called when the overlay was accepted.",
-                    setOf(VALUE_REQUIRED, VALUE_JS)
+                    setOf(VALUE_JS)
                 ),
                 of(
                     "[up-on-dismissed]",
                     "A JavaScript snippet that is called when the overlay was dismissed.",
-                    setOf(VALUE_REQUIRED, VALUE_JS)
+                    setOf(VALUE_JS)
                 ),
                 of(
                     "[up-accept-event]",
                     "One or more space-separated event types that will cause this overlay to automatically be accepted when a matching event occurs within the overlay.",
-                    setOf(VALUE_REQUIRED)
                 ),
                 of(
                     "[up-dismiss-event]",
                     "One or more space-separated event types that will cause this overlay to automatically be dismissed when a matching event occurs within the overlay.",
-                    setOf(VALUE_REQUIRED)
                 ),
                 of(
                     "[up-accept-location]",
                     "One or more space-separated URL patterns that will cause this overlay to automatically be accepted when the overlay reaches a matching location.",
-                    setOf(VALUE_REQUIRED, VALUE_URI)
+                    setOf(VALUE_URI)
                 ),
                 of(
                     "[up-dismiss-location]",
                     "One or more space-separated URL patterns that will cause this overlay to automatically be dismissed when the overlay reaches a matching location.",
-                    setOf(VALUE_REQUIRED, VALUE_URI)
+                    setOf(VALUE_URI)
                 ),
                 of(
-                    "[up-position]",
-                    "The position of the popup relative to the { origin } element that opened the overlay.",
-                    setOf(VALUE_POSITION)
+                    notation = "[up-position]",
+                    text = "The position of the popup relative to the { origin } element that opened the overlay.",
+                    values = setOf(VALUE_POSITION),
+                    enumerated = true
                 ),
                 of(
-                    "[up-align]",
-                    "The alignment of the popup within its { position }.",
-                    setOf(VALUE_ALIGN)
+                    notation = "[up-align]",
+                    text = "The alignment of the popup within its { position }.",
+                    values = setOf(VALUE_ALIGN),
+                    enumerated = true
                 ),
-
-                )
+            )
         ),
         // Fragment API
         of(
             notation = "[up-id]",
             text = "Sets an unique identifier for this element",
-            values = setOf(VALUE_REQUIRED)
+            values = setOf("<identifier>")
         ),
         of(
             notation = "[up-keep]",
             text = "Elements with an [up-keep] attribute will be persisted during fragment updates.",
-            values = setOf(VALUE_TOGGLEABLE),
             modifiers = setOf(
                 of(
                     "[up-on-keep]",
                     "Code to run before an existing element is kept during a page update.",
-                    setOf(VALUE_REQUIRED, VALUE_JS)
+                    setOf(VALUE_JS)
                 )
             )
-        ),
-        of(
-            notation = "[up-source]",
-            text = "Sets this element's source URL for reloading and polling",
-            setOf(VALUE_REQUIRED, VALUE_URI)
         ),
         of(
             notation = "[up-main]",
             text = "Marks this element as the primary content element of your application layout.",
         ),
+        of(
+            notation = "[up-source]",
+            text = "Sets this element's source URL for reloading and polling",
+            setOf(VALUE_URI)
+        ),
 
         // Passive updates
         of(
+            notation = "[up-flashes]", experimental = true,
+            text = "Use an [up-flashes] element to show confirmations, alerts or warnings.",
+        ),
+        of(
             notation = "[up-hungry]",
-            values = setOf(VALUE_TOGGLEABLE),
             text = "Elements with an [up-hungry] attribute are updated whenever the server sends a matching element, even if the element isn't targeted.",
             modifiers = setOf(
                 of(
-                    "[up-transition]",
-                    "The animated transition to apply when this element is updated.",
-                    setOf(VALUE_REQUIRED, VALUE_TRANSITION)
+                    notation = "[up-transition]",
+                    text = "The animated transition to apply when this element is updated.",
+                    values = setOf(VALUE_TRANSITION),
+                    enumerated = true
                 ),
                 of(
                     "[up-duration]",
@@ -469,66 +449,66 @@ object UnpolyAttributes {
                 of(
                     "[up-easing]",
                     "The timing function that accelerates the transition or animation.",
-                    setOf(VALUE_REQUIRED)
                 ),
                 of(
-                    "[up-if-layer='current']",
-                    "Only piggy-back on updates on layers that match the given layer reference",
-                    setOf(VALUE_REQUIRED, VALUE_LAYER_MATCHING)
+                    notation = "[up-if-layer='current']",
+                    text = "Only piggy-back on updates on layers that match the given layer reference",
+                    values = setOf(VALUE_LAYER_MATCHING),
+                    enumerated = true
                 ),
                 of(
                     "[up-on-hungry]",
                     "Code to run before this element is included in a fragment update.",
-                    setOf(VALUE_REQUIRED, VALUE_JS)
+                    setOf(VALUE_JS)
                 ),
             )
         ),
         of(
             notation = "[up-poll]",
             text = "Elements with an [up-poll] attribute are reloaded from the server periodically.",
-            values = setOf(VALUE_TOGGLEABLE),
             modifiers = setOf(
-                of("[up-interval]", "The reload interval in milliseconds.", setOf(VALUE_REQUIRED, VALUE_NUMBER)),
-                of("[up-source]", "The URL from which to reload the fragment.", setOf(VALUE_REQUIRED, VALUE_URI))
+                of("[up-interval]", "The reload interval in milliseconds.", setOf(VALUE_NUMBER)),
+                of("[up-source]", "The URL from which to reload the fragment.", setOf(VALUE_URI))
             )
         ),
-        of(
-            notation = "[up-flashes]", deprecated = true,
-            text = "Experimental. Use an [up-flashes] element to show confirmations, alerts or warnings.",
-        ),
-
 
         // Animation
         of(
-            notation = "a[up-transition]", values = setOf(VALUE_REQUIRED, VALUE_TRANSITION),
+            notation = "[up-transition]",
             text = "Follows this link and swaps in the new fragment with an animated transition.",
-            modifiers = UnpolyModifiers.UP_FOLLOW
+            matchers = listOf(Matchers.links()),
+            modifiers = UnpolyModifiers.UP_FOLLOW,
+            values = setOf(VALUE_TRANSITION),
+            enumerated = true,
         ),
         of(
-            notation = "form[up-transition]", values = setOf(VALUE_REQUIRED, VALUE_TRANSITION),
+            notation = "form[up-transition]",
             text = "Submits this form and swaps in the new fragment with an animated transition.",
-            modifiers = UnpolyModifiers.UP_SUBMIT
+            modifiers = UnpolyModifiers.UP_SUBMIT,
+            values = setOf(VALUE_TRANSITION),
+            enumerated = true,
         ),
 
         // Navigation feedback
         of(
-            notation = "[up-nav]",
-            text = "Marks this element as a navigation component, such as a menu or navigation bar."
+            notation = "a[up-alias]", values = setOf(VALUE_URI),
+            text = "Links within [up-nav] may use the [up-alias] attribute to pass a URL pattern for which they should also be highlighted as .up-current."
         ),
         of(
-            notation = "a[up-alias]", values = setOf(VALUE_REQUIRED, VALUE_URI),
-            text = "Links within [up-nav] may use the [up-alias] attribute to pass a URL pattern for which they should also be highlighted as .up-current."
+            notation = "[up-nav]",
+            text = "Marks this element as a navigation component, such as a menu or navigation bar."
         ),
 
         // Events
         of(
-            notation = "a[up-emit]", values = setOf(VALUE_REQUIRED),
+            notation = "[up-emit]",
             text = "Emits the given event when this link is clicked.",
+            matchers = listOf(Matchers.links()),
             modifiers = setOf(
                 of(
                     "[up-emit-props='{}']",
                     "The event properties, serialized as JSON.",
-                    setOf(VALUE_REQUIRED, VALUE_JSON)
+                    setOf(VALUE_JSON)
                 )
             )
         ),
@@ -539,7 +519,7 @@ object UnpolyAttributes {
             text = "Marks this element as being anchored to the right edge of the screen, typically fixed navigation bars."
         ),
         of(
-            notation = "[up-fixed='bottom']", values = setOf(VALUE_REQUIRED, "top", "bottom"),
+            notation = "[up-fixed='bottom']", values = setOf("top", "bottom"),
             text = "Marks this element as being fixed to the top/bottom edge of the screen using position: fixed."
         ),
         of(
@@ -550,7 +530,12 @@ object UnpolyAttributes {
         // History
         of(
             notation = "a[up-back]",
-            text = "Changes the link's destination so it points to the previous URL."
+            text = "Changes the link's destination so it points to the previous URL.",
+        ),
+        of(
+            notation = "[up-meta]",
+            text = "Configure whether this element is updated during history changes",
+            values = listOf(VALUE_BOOLEAN)
         )
     )
 
