@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.9.0] - 2025-08-18
+
+- Support platform version 252
+
 ## [0.8.0] - 2025-01-20
 
 - Add support for [Unpoly 3.9 \[up-href\]](https://unpoly.com/changes/3.9.0#making-links-followable)
@@ -46,7 +50,9 @@
 
 - Support autocompletion for all stable unpoly tags.
 
-[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.9.0...HEAD
+
+[0.9.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.9.0
 
 [0.8.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.8.0
 
