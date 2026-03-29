@@ -1,4 +1,4 @@
-# unpoly-jetbrains
+# Unpoly Support Jetbrains Plugin
 
 ![Build](https://github.com/mawngo/unpoly-jetbrains/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/PLUGIN_ID.svg)](https://plugins.jetbrains.com/plugin/23200-unpoly-support)
@@ -22,7 +22,7 @@ found [here](src/main/kotlin/com/github/sitdownrightnow2552/unpolyjetbrains/attr
 - Using the IDE built-in plugin system:
 
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>Marketplace</kbd> > <kbd>Search for "
-  unpoly-jetbrains"</kbd> >
+  Unpoly Support"</kbd> >
   <kbd>Install</kbd>
 
 - Manually:

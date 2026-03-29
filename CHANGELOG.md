@@ -1,6 +1,6 @@
 <!-- Keep a Changelog guide -> https://keepachangelog.com -->
 
-# unpoly-jetbrains Changelog
+# Unpoly Support Changelog
 
 ## [Unreleased]
 
