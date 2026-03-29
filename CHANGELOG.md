@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-03-29
+
+- Support platform version 261
+
 ## [0.10.0] - 2025-12-09
 
 - Support platform version 253
@@ -54,7 +58,9 @@
 
 - Support autocompletion for all stable unpoly tags.
 
-[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.9.0...HEAD
+[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.11.0...HEAD
+
+[0.11.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.11.0
 
 [0.10.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.10.0
 
