@@ -58,7 +58,7 @@
 
 - Support autocompletion for all stable unpoly tags.
 
-[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.11.0...HEAD
+[Unreleased]: https://github.com/mawngo/unpoly-jetbrains/compare/v0.11.1...HEAD
 
 [0.11.0]: https://github.com/mawngo/unpoly-jetbrains/commits/v0.11.0
 
